@@ -6,17 +6,17 @@ import { route } from 'ziggy-js';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
-        title: 'Products',
-        href: '/products',
+        title: 'Create a New Product',
+        href: '/products/create',
     },
 ];
 
 export default function Index() {
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
-            <Head title="Products" />
+            <Head title="Create a New Product" />
             <div>
-                <Link href={route('products.create')}><Button>Create a new product</Button></Link>
+                This is a create a new product page
             </div>
         </AppLayout>
     );
