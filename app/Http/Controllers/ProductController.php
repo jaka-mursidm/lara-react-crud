@@ -10,7 +10,8 @@ class ProductController extends Controller
 {
     public function index()
     {
-        return Inertia::render('products/Index', []);
+        $products = Product::all();
+        return Inertia::render('products/Index', compact('products'));
     }
     public function create()
     {
