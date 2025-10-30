@@ -1,3 +1,4 @@
+import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -6,6 +7,8 @@ import AppLayout from '@/layouts/app-layout';
 import { type BreadcrumbItem } from '@/types';
 import { Head, useForm } from '@inertiajs/react';
 import { route } from 'ziggy-js';
+import { CircleAlert } from 'lucide-react';
+
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -29,6 +32,20 @@ export default function Create() {
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Create a New Product" />
             <div className='p-4'>
+                {/* Display Error */}
+                {Object.keys(errors).length > 0 && (
+                    <Alert>
+                        <CircleAlert />
+                        <AlertTitle>Error!</AlertTitle>
+                        <AlertDescription>
+                            <ul>
+                                {Object.entries(errors).map(([key, message]) => (
+                                    <li key={key}>{message as string}</li>
+                                ))}
+                            </ul>
+                        </AlertDescription>
+                    </Alert>
+                )}
                 <form onSubmit={handleSubmit} className='space-y-3'>
                     <div>
                         <Label htmlFor='product name'>Name</Label>
