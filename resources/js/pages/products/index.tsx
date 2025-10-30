@@ -1,10 +1,11 @@
 import { Button } from '@/components/ui/button';
 import AppLayout from '@/layouts/app-layout';
 import { type BreadcrumbItem } from '@/types';
-import { Head, Link, usePage } from '@inertiajs/react';
+import { Head, Link, useForm, usePage } from '@inertiajs/react';
 import { route } from 'ziggy-js';
 import { Megaphone } from 'lucide-react';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
+
 import {
     Table,
     TableBody,
@@ -36,6 +37,13 @@ interface PageProps {
 
 export default function Index() {
     const { flash, products } = usePage().props as PageProps;
+    const { processing, delete: destroy } = useForm();
+
+    function handleDelete(id: number, name: string) {
+        if (confirm(`Do you want to delete this product? - ${id}. ${name}`)) {
+            destroy(route('products.destroy', id));
+        }
+    }
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Products" />
@@ -68,22 +76,26 @@ export default function Index() {
                         </TableHeader>
                         <TableBody>
                             {products.map((product) => (
-                                <TableRow>
+                                <TableRow key={product.id}>
                                     <TableCell>{product.id}</TableCell>
                                     <TableCell>{product.name}</TableCell>
                                     <TableCell>{product.price}</TableCell>
                                     <TableCell>{product.description}</TableCell>
-                                    <TableCell className='flex justify-center gap-1'>
-                                        <Button variant="outline">
-                                            Edit
-                                        </Button>
-                                        <Button variant="outline" className='bg-red-500 hover:bg-red-600'>
+                                    <TableCell className="flex justify-center gap-1">
+                                        <Button variant="outline">Edit</Button>
+                                        <Button
+                                            disabled={processing}
+                                            onClick={() => handleDelete(product.id, product.name)}
+                                            variant="outline"
+                                            className="bg-red-500 hover:bg-red-600"
+                                        >
                                             Delete
                                         </Button>
                                     </TableCell>
                                 </TableRow>
                             ))}
                         </TableBody>
+
                     </Table>
                 )}
             </div>
