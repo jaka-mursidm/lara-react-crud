@@ -68,7 +68,7 @@ export default function Edit({ product }: Props) {
                         <Textarea placeholder='Enter product description' value={data.decsription} onChange={(e) => setData('description', e.target.value)}></Textarea>
                     </div>
                     <div>
-                        <Button type='submit' >Create</Button>
+                        <Button type='submit' >Update</Button>
                     </div>
                 </form>
             </div>
