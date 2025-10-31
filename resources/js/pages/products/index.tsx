@@ -82,7 +82,7 @@ export default function Index() {
                                     <TableCell>{product.price}</TableCell>
                                     <TableCell>{product.description}</TableCell>
                                     <TableCell className="flex justify-center gap-1">
-                                        <Button variant="outline">Edit</Button>
+                                        <Link href={route('products.edit', product.id)}><Button variant="outline">Edit</Button></Link>
                                         <Button
                                             disabled={processing}
                                             onClick={() => handleDelete(product.id, product.name)}
